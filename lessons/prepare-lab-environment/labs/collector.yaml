@@ -1,0 +1,16 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: ${env:LAB_OTLP_ENDPOINT}
+exporters:
+  debug:
+    verbosity: basic
+service:
+  telemetry:
+    metrics:
+      level: none
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [debug]
