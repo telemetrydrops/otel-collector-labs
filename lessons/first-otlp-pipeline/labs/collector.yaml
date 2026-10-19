@@ -1,0 +1,18 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: ${env:LESSON_OTLP_ENDPOINT}
+exporters:
+  file:
+    path: ${env:LESSON_TRACE_FILE}
+    format: json
+    flush_interval: 100ms
+service:
+  telemetry:
+    metrics:
+      level: none
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [file]
