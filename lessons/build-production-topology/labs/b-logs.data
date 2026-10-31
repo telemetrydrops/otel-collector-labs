@@ -1,0 +1,86 @@
+{
+  "resourceLogs": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "checkout-b"
+            }
+          },
+          {
+            "key": "tenant.id",
+            "value": {
+              "stringValue": "b"
+            }
+          },
+          {
+            "key": "synthetic.customer.email",
+            "value": {
+              "stringValue": "nobody@example.invalid"
+            }
+          }
+        ]
+      },
+      "scopeLogs": [
+        {
+          "scope": {
+            "name": "telemetrydrops.capstone",
+            "version": "1.0.0"
+          },
+          "logRecords": [
+            {
+              "timeUnixNano": "1792272000000000000",
+              "severityNumber": 9,
+              "severityText": "INFO",
+              "body": {
+                "stringValue": "heartbeat ok"
+              },
+              "attributes": [
+                {
+                  "key": "synthetic.token",
+                  "value": {
+                    "stringValue": "synthetic-token-not-a-secret"
+                  }
+                }
+              ]
+            },
+            {
+              "timeUnixNano": "1792272000000000000",
+              "severityNumber": 9,
+              "severityText": "INFO",
+              "body": {
+                "stringValue": "order created"
+              },
+              "attributes": [
+                {
+                  "key": "synthetic.token",
+                  "value": {
+                    "stringValue": "synthetic-token-not-a-secret"
+                  }
+                }
+              ]
+            },
+            {
+              "timeUnixNano": "1792272000000000000",
+              "severityNumber": 17,
+              "severityText": "ERROR",
+              "body": {
+                "stringValue": "payment failed token=synthetic-token-not-a-secret reason=declined"
+              },
+              "attributes": [
+                {
+                  "key": "synthetic.token",
+                  "value": {
+                    "stringValue": "synthetic-token-not-a-secret"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

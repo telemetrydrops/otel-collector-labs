@@ -1,0 +1,31 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: "127.0.0.1:@HTTP@"
+exporters:
+  debug:
+    verbosity: detailed
+extensions:
+  pprof:
+    endpoint: "127.0.0.1:@PROFILE@"
+service:
+  extensions: [pprof]
+  telemetry:
+    logs:
+      level: info
+      encoding: json
+    metrics:
+      level: detailed
+      readers:
+        - pull:
+            exporter:
+              prometheus:
+                host: 127.0.0.1
+                port: "@METRICS@"
+                without_type_suffix: true
+                without_units: true
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [debug]

@@ -1,0 +1,54 @@
+{
+  "resourceLogs": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "checkout-demo"
+            }
+          },
+          {
+            "key": "synthetic.customer.email",
+            "value": {
+              "stringValue": "learner@example.invalid"
+            }
+          }
+        ]
+      },
+      "scopeLogs": [
+        {
+          "scope": {
+            "name": "telemetrydrops.lesson",
+            "version": "1.0.0"
+          },
+          "logRecords": [
+            {
+              "timeUnixNano": "1792281600000000000",
+              "severityNumber": 17,
+              "severityText": "ERROR",
+              "body": {
+                "stringValue": "payment failed token=FAKE_TOKEN_FOR_LAB_ONLY reason=declined"
+              },
+              "attributes": [
+                {
+                  "key": "synthetic.token",
+                  "value": {
+                    "stringValue": "FAKE_TOKEN_FOR_LAB_ONLY"
+                  }
+                }
+              ]
+            },
+            {
+              "timeUnixNano": "1792281600000000000",
+              "body": {
+                "intValue": "42"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

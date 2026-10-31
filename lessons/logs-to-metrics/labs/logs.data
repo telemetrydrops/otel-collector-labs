@@ -1,0 +1,70 @@
+{
+  "resourceLogs": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "checkout-demo"
+            }
+          }
+        ]
+      },
+      "scopeLogs": [
+        {
+          "scope": {
+            "name": "telemetrydrops.lesson",
+            "version": "1.0.0"
+          },
+          "logRecords": [
+            {
+              "timeUnixNano": "1792324800000000000",
+              "severityNumber": 9,
+              "severityText": "INFO",
+              "body": {
+                "stringValue": "checkout-success"
+              },
+              "attributes": [
+                {
+                  "key": "lesson.case",
+                  "value": {
+                    "stringValue": "success"
+                  }
+                },
+                {
+                  "key": "lesson.duration_ms",
+                  "value": {
+                    "intValue": "10"
+                  }
+                }
+              ]
+            },
+            {
+              "timeUnixNano": "1792324800000000000",
+              "severityNumber": 17,
+              "severityText": "ERROR",
+              "body": {
+                "stringValue": "checkout-error"
+              },
+              "attributes": [
+                {
+                  "key": "lesson.case",
+                  "value": {
+                    "stringValue": "error"
+                  }
+                },
+                {
+                  "key": "lesson.duration_ms",
+                  "value": {
+                    "intValue": "50"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

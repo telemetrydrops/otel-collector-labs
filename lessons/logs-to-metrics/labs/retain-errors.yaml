@@ -1,0 +1,49 @@
+connectors:
+  forward/retention:
+  count:
+    logs:
+      lesson.log.records:
+        attributes:
+          - key: lesson.case
+  signal_to_metrics:
+    error_mode: propagate
+    logs:
+      - name: lesson.log.duration
+        description: Synthetic operation duration reported by each log
+        unit: ms
+        attributes:
+          - key: lesson.case
+        histogram:
+          value: Int(log.attributes["lesson.duration_ms"])
+          buckets: [10, 25, 50, 100]
+processors:
+  filter/retain-errors:
+    error_mode: propagate
+    logs:
+      log_record:
+        - log.severity_number < SEVERITY_NUMBER_ERROR
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 127.0.0.1:${env:LESSON_PORT}
+exporters:
+  file/logs:
+    path: ${env:LESSON_WORK}/logs.jsonl
+  file/metrics:
+    path: ${env:LESSON_WORK}/metrics.jsonl
+service:
+  telemetry:
+    metrics:
+      level: none
+  pipelines:
+    logs/in:
+      receivers: [otlp]
+      exporters: [forward/retention, count, signal_to_metrics]
+    metrics/derived:
+      receivers: [count, signal_to_metrics]
+      exporters: [file/metrics]
+    logs/retained:
+      receivers: [forward/retention]
+      processors: [filter/retain-errors]
+      exporters: [file/logs]

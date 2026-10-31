@@ -1,0 +1,32 @@
+connectors:
+  span_metrics:
+    metrics_flush_interval: 200ms
+    aggregation_temporality: AGGREGATION_TEMPORALITY_DELTA
+    histogram:
+      unit: ms
+      explicit:
+        buckets: [5ms, 10ms, 25ms]
+    exclude_dimensions: [collector.instance.id]
+    dimensions:
+      - name: lesson.case
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 127.0.0.1:${env:LESSON_PORT}
+exporters:
+  file/traces:
+    path: ${env:LESSON_WORK}/traces.jsonl
+  file/metrics:
+    path: ${env:LESSON_WORK}/metrics.jsonl
+service:
+  telemetry:
+    metrics:
+      level: none
+  pipelines:
+    traces/in:
+      receivers: [otlp]
+      exporters: [file/traces, span_metrics]
+    metrics/derived:
+      receivers: [span_metrics]
+      exporters: [file/metrics]

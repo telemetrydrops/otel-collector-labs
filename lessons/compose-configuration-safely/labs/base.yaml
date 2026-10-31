@@ -1,0 +1,18 @@
+processors: ${file:processors.yaml}
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 127.0.0.1:${env:LESSON_PORT}
+exporters:
+  file:
+    path: ${env:LESSON_OUTPUT}
+service:
+  telemetry:
+    metrics:
+      level: none
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [resource/stamp]
+      exporters: [file]

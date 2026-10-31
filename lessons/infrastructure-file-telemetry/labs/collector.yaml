@@ -1,0 +1,34 @@
+receivers:
+  host_metrics:
+    collection_interval: 1s
+    scrapers:
+      cpu: {}
+  prometheus:
+    config:
+      scrape_configs:
+        - job_name: lesson-target
+          scrape_interval: 1s
+          static_configs:
+            - targets: ["127.0.0.1:@TARGET@"]
+  file_log:
+    include: ["@INPUT@"]
+    start_at: beginning
+    include_file_name: false
+exporters:
+  file/metrics:
+    path: "@OUTPUT@/metrics.jsonl"
+    flush_interval: 100ms
+  file/logs:
+    path: "@OUTPUT@/logs.jsonl"
+    flush_interval: 100ms
+service:
+  telemetry:
+    metrics:
+      level: none
+  pipelines:
+    metrics:
+      receivers: [host_metrics, prometheus]
+      exporters: [file/metrics]
+    logs:
+      receivers: [file_log]
+      exporters: [file/logs]

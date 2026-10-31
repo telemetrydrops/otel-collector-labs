@@ -1,0 +1,44 @@
+{
+  "receivers":
+    {
+      "otlp":
+        {
+          "protocols":
+            {
+              "grpc": { "endpoint": "127.0.0.1:@GRPC@" },
+              "http": { "endpoint": "127.0.0.1:@HTTP@" },
+            },
+        },
+    },
+  "exporters": { "file": { "path": "@OUTPUT@", "flush_interval": "100ms" } },
+  "service":
+    {
+      "telemetry": { "metrics": { "level": "none" } },
+      "pipelines":
+        {
+          "traces":
+            {
+              "receivers": ["otlp"],
+              "exporters": ["file"],
+              "processors": ["tail_sampling"],
+            },
+        },
+    },
+  "processors":
+    {
+      "tail_sampling":
+        {
+          "decision_wait": "1s",
+          "num_traces": 128,
+          "expected_new_traces_per_sec": 32,
+          "policies":
+            [
+              {
+                "name": "errors",
+                "type": "status_code",
+                "status_code": { "status_codes": ["ERROR"] },
+              },
+            ],
+        },
+    },
+}

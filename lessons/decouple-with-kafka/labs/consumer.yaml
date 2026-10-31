@@ -1,0 +1,24 @@
+receivers:
+  kafka:
+    brokers: ["127.0.0.1:${env:KAFKA_PORT}"]
+    traces:
+      topics: [lesson-traces]
+      encoding: otlp_proto
+    group_id: lesson-consumer
+    initial_offset: earliest
+    autocommit:
+      enable: true
+      interval: 1s
+    message_marking:
+      after: true
+exporters:
+  file:
+    path: ${env:LESSON_WORK}/consumed.jsonl
+service:
+  telemetry:
+    metrics:
+      level: none
+  pipelines:
+    traces:
+      receivers: [kafka]
+      exporters: [file]

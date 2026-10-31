@@ -1,0 +1,32 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: "127.0.0.1:@SINK_B@"
+        tls:
+          cert_file: "@WORK@/server.crt"
+          key_file: "@WORK@/server.key"
+        auth:
+          authenticator: bearertokenauth/server
+extensions:
+  bearertokenauth/server:
+    token: ${env:DESTINATION_B_TOKEN}
+exporters:
+  file:
+    path: "@WORK@/b.jsonl"
+    flush_interval: 100ms
+service:
+  extensions: [bearertokenauth/server]
+  telemetry:
+    metrics:
+      level: none
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [file]
+    metrics:
+      receivers: [otlp]
+      exporters: [file]
+    logs:
+      receivers: [otlp]
+      exporters: [file]

@@ -1,0 +1,23 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: "127.0.0.1:@PORT@"
+exporters:
+  file:
+    path: "@OUTPUT@/output.jsonl"
+    flush_interval: 100ms
+processors:
+  probabilistic_sampler:
+    mode: hash_seed
+    hash_seed: 22
+    sampling_percentage: 50
+service:
+  telemetry:
+    metrics:
+      level: none
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [probabilistic_sampler]
+      exporters: [file]

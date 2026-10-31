@@ -1,0 +1,36 @@
+{
+  "receivers":
+    { "otlp": { "protocols": { "http": { "endpoint": "127.0.0.1:@HTTP@" } } } },
+  "exporters":
+    {
+      "load_balancing":
+        {
+          "routing_key": "traceID",
+          "protocol":
+            {
+              "otlp":
+                {
+                  "tls": { "insecure": true },
+                  "sending_queue": { "enabled": false },
+                  "retry_on_failure": { "enabled": false },
+                  "timeout": "2s",
+                },
+            },
+          "resolver":
+            {
+              "static":
+                { "hostnames": ["127.0.0.1:@OWNER0@", "127.0.0.1:@OWNER1@"] },
+            },
+          "sending_queue": { "enabled": false },
+          "retry_on_failure": { "enabled": false },
+        },
+    },
+  "service":
+    {
+      "telemetry": { "metrics": { "level": "none" } },
+      "pipelines":
+        {
+          "traces": { "receivers": ["otlp"], "exporters": ["load_balancing"] },
+        },
+    },
+}

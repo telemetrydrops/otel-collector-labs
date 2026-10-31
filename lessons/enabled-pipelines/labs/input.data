@@ -1,0 +1,63 @@
+{
+  "resourceSpans": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "checkout-demo"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "telemetrydrops.lesson"
+          },
+          "spans": [
+            {
+              "traceId": "0123456789abcdef0123456789abcdef",
+              "spanId": "0123456789abcdef",
+              "name": "checkout-success",
+              "kind": 1,
+              "startTimeUnixNano": "1792272000000000000",
+              "endTimeUnixNano": "1792272000001000000",
+              "status": {
+                "code": 1
+              },
+              "attributes": [
+                {
+                  "key": "lesson.case",
+                  "value": {
+                    "stringValue": "success"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "0123456789abcdef0123456789abcdef",
+              "spanId": "fedcba9876543210",
+              "name": "checkout-error",
+              "kind": 1,
+              "startTimeUnixNano": "1792272000000000000",
+              "endTimeUnixNano": "1792272000001000000",
+              "status": {
+                "code": 2
+              },
+              "attributes": [
+                {
+                  "key": "lesson.case",
+                  "value": {
+                    "stringValue": "error"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+checkout-ready
+checkout-error

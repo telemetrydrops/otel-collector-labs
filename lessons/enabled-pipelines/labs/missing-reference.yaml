@@ -1,0 +1,30 @@
+receivers:
+  otlp/intake:
+    protocols:
+      http:
+        endpoint: 127.0.0.1:@PORT@
+processors:
+  resource/first:
+    attributes:
+      - key: lesson.stage
+        value: first
+        action: upsert
+  resource/second:
+    attributes:
+      - key: lesson.stage
+        value: second
+        action: upsert
+exporters:
+  file/primary:
+    path: "@OUTPUT@/primary.jsonl"
+  file/audit:
+    path: "@OUTPUT@/audit.jsonl"
+service:
+  telemetry:
+    metrics:
+      level: none
+  pipelines:
+    traces/main:
+      receivers: [otlp/intake]
+      processors: [resource/missing]
+      exporters: [file/primary]

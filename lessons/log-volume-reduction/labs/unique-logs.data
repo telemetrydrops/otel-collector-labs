@@ -1,0 +1,164 @@
+{
+  "resourceLogs": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "edge-proxy"
+            }
+          }
+        ]
+      },
+      "scopeLogs": [
+        {
+          "scope": {
+            "name": "telemetrydrops.volume",
+            "version": "1.0.0"
+          },
+          "logRecords": [
+            {
+              "timeUnixNano": "1792272000000000000",
+              "observedTimeUnixNano": "1792272000000000000",
+              "severityNumber": 9,
+              "severityText": "INFO",
+              "body": {
+                "stringValue": "heartbeat ok"
+              },
+              "attributes": [
+                {
+                  "key": "lesson.case",
+                  "value": {
+                    "stringValue": "routine"
+                  }
+                },
+                {
+                  "key": "lesson.event",
+                  "value": {
+                    "stringValue": "0"
+                  }
+                }
+              ]
+            },
+            {
+              "timeUnixNano": "1792272000001000000",
+              "observedTimeUnixNano": "1792272000001000000",
+              "severityNumber": 9,
+              "severityText": "INFO",
+              "body": {
+                "stringValue": "heartbeat ok"
+              },
+              "attributes": [
+                {
+                  "key": "lesson.case",
+                  "value": {
+                    "stringValue": "routine"
+                  }
+                },
+                {
+                  "key": "lesson.event",
+                  "value": {
+                    "stringValue": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "timeUnixNano": "1792272000002000000",
+              "observedTimeUnixNano": "1792272000002000000",
+              "severityNumber": 9,
+              "severityText": "INFO",
+              "body": {
+                "stringValue": "heartbeat ok"
+              },
+              "attributes": [
+                {
+                  "key": "lesson.case",
+                  "value": {
+                    "stringValue": "routine"
+                  }
+                },
+                {
+                  "key": "lesson.event",
+                  "value": {
+                    "stringValue": "2"
+                  }
+                }
+              ]
+            },
+            {
+              "timeUnixNano": "1792272000003000000",
+              "observedTimeUnixNano": "1792272000003000000",
+              "severityNumber": 9,
+              "severityText": "INFO",
+              "body": {
+                "stringValue": "order 123 created"
+              },
+              "attributes": [
+                {
+                  "key": "lesson.case",
+                  "value": {
+                    "stringValue": "routine"
+                  }
+                },
+                {
+                  "key": "lesson.event",
+                  "value": {
+                    "stringValue": "3"
+                  }
+                }
+              ]
+            },
+            {
+              "timeUnixNano": "1792272000004000000",
+              "observedTimeUnixNano": "1792272000004000000",
+              "severityNumber": 9,
+              "severityText": "INFO",
+              "body": {
+                "stringValue": "order 456 created"
+              },
+              "attributes": [
+                {
+                  "key": "lesson.case",
+                  "value": {
+                    "stringValue": "routine"
+                  }
+                },
+                {
+                  "key": "lesson.event",
+                  "value": {
+                    "stringValue": "4"
+                  }
+                }
+              ]
+            },
+            {
+              "timeUnixNano": "1792272000005000000",
+              "observedTimeUnixNano": "1792272000005000000",
+              "severityNumber": 17,
+              "severityText": "ERROR",
+              "body": {
+                "stringValue": "order 789 failed"
+              },
+              "attributes": [
+                {
+                  "key": "lesson.case",
+                  "value": {
+                    "stringValue": "failure"
+                  }
+                },
+                {
+                  "key": "lesson.event",
+                  "value": {
+                    "stringValue": "5"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

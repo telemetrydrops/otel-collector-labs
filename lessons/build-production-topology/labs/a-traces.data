@@ -1,0 +1,242 @@
+{
+  "resourceSpans": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "checkout-a"
+            }
+          },
+          {
+            "key": "tenant.id",
+            "value": {
+              "stringValue": "b"
+            }
+          },
+          {
+            "key": "synthetic.customer.email",
+            "value": {
+              "stringValue": "nobody@example.invalid"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "telemetrydrops.capstone",
+            "version": "1.0.0"
+          },
+          "spans": [
+            {
+              "traceId": "00000000000000000000000000000065",
+              "spanId": "0000000000000002",
+              "name": "fast-ok-root",
+              "kind": 1,
+              "startTimeUnixNano": "1792272000000000000",
+              "endTimeUnixNano": "1792272000010000000",
+              "status": {
+                "code": 1
+              },
+              "attributes": [
+                {
+                  "key": "lesson.case",
+                  "value": {
+                    "stringValue": "fast-ok"
+                  }
+                },
+                {
+                  "key": "synthetic.token",
+                  "value": {
+                    "stringValue": "synthetic-token-not-a-secret"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "00000000000000000000000000000065",
+              "spanId": "0000000000000003",
+              "name": "fast-ok-child",
+              "kind": 1,
+              "startTimeUnixNano": "1792272000001000000",
+              "endTimeUnixNano": "1792272000009000000",
+              "status": {
+                "code": 1
+              },
+              "attributes": [
+                {
+                  "key": "lesson.case",
+                  "value": {
+                    "stringValue": "fast-ok"
+                  }
+                },
+                {
+                  "key": "synthetic.token",
+                  "value": {
+                    "stringValue": "synthetic-token-not-a-secret"
+                  }
+                }
+              ],
+              "parentSpanId": "0000000000000002"
+            },
+            {
+              "traceId": "00000000000000000000000000000066",
+              "spanId": "0000000000000004",
+              "name": "fast-error-root",
+              "kind": 1,
+              "startTimeUnixNano": "1792272000000000000",
+              "endTimeUnixNano": "1792272000020000000",
+              "status": {
+                "code": 2
+              },
+              "attributes": [
+                {
+                  "key": "lesson.case",
+                  "value": {
+                    "stringValue": "fast-error"
+                  }
+                },
+                {
+                  "key": "synthetic.token",
+                  "value": {
+                    "stringValue": "synthetic-token-not-a-secret"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "00000000000000000000000000000066",
+              "spanId": "0000000000000005",
+              "name": "fast-error-child",
+              "kind": 1,
+              "startTimeUnixNano": "1792272000001000000",
+              "endTimeUnixNano": "1792272000019000000",
+              "status": {
+                "code": 2
+              },
+              "attributes": [
+                {
+                  "key": "lesson.case",
+                  "value": {
+                    "stringValue": "fast-error"
+                  }
+                },
+                {
+                  "key": "synthetic.token",
+                  "value": {
+                    "stringValue": "synthetic-token-not-a-secret"
+                  }
+                }
+              ],
+              "parentSpanId": "0000000000000004"
+            },
+            {
+              "traceId": "00000000000000000000000000000067",
+              "spanId": "0000000000000006",
+              "name": "slow-ok-root",
+              "kind": 1,
+              "startTimeUnixNano": "1792272000000000000",
+              "endTimeUnixNano": "1792272000500000000",
+              "status": {
+                "code": 1
+              },
+              "attributes": [
+                {
+                  "key": "lesson.case",
+                  "value": {
+                    "stringValue": "slow-ok"
+                  }
+                },
+                {
+                  "key": "synthetic.token",
+                  "value": {
+                    "stringValue": "synthetic-token-not-a-secret"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "00000000000000000000000000000067",
+              "spanId": "0000000000000007",
+              "name": "slow-ok-child",
+              "kind": 1,
+              "startTimeUnixNano": "1792272000001000000",
+              "endTimeUnixNano": "1792272000499000000",
+              "status": {
+                "code": 1
+              },
+              "attributes": [
+                {
+                  "key": "lesson.case",
+                  "value": {
+                    "stringValue": "slow-ok"
+                  }
+                },
+                {
+                  "key": "synthetic.token",
+                  "value": {
+                    "stringValue": "synthetic-token-not-a-secret"
+                  }
+                }
+              ],
+              "parentSpanId": "0000000000000006"
+            },
+            {
+              "traceId": "00000000000000000000000000000068",
+              "spanId": "0000000000000008",
+              "name": "slow-error-root",
+              "kind": 1,
+              "startTimeUnixNano": "1792272000000000000",
+              "endTimeUnixNano": "1792272000600000000",
+              "status": {
+                "code": 2
+              },
+              "attributes": [
+                {
+                  "key": "lesson.case",
+                  "value": {
+                    "stringValue": "slow-error"
+                  }
+                },
+                {
+                  "key": "synthetic.token",
+                  "value": {
+                    "stringValue": "synthetic-token-not-a-secret"
+                  }
+                }
+              ]
+            },
+            {
+              "traceId": "00000000000000000000000000000068",
+              "spanId": "0000000000000009",
+              "name": "slow-error-child",
+              "kind": 1,
+              "startTimeUnixNano": "1792272000001000000",
+              "endTimeUnixNano": "1792272000599000000",
+              "status": {
+                "code": 2
+              },
+              "attributes": [
+                {
+                  "key": "lesson.case",
+                  "value": {
+                    "stringValue": "slow-error"
+                  }
+                },
+                {
+                  "key": "synthetic.token",
+                  "value": {
+                    "stringValue": "synthetic-token-not-a-secret"
+                  }
+                }
+              ],
+              "parentSpanId": "0000000000000008"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
