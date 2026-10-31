@@ -1,0 +1,23 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: "127.0.0.1:@ENTRY@"
+exporters:
+  otlp_grpc:
+    endpoint: "127.0.0.1:@TARGET@"
+    tls:
+      insecure: true
+    timeout: 1s
+    sending_queue:
+      enabled: false
+    retry_on_failure:
+      enabled: false
+service:
+  telemetry:
+    metrics:
+      level: none
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [otlp_grpc]

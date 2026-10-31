@@ -1,0 +1,29 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: "127.0.0.1:@PORT@"
+exporters:
+  file:
+    path: "@OUTPUT@/output.jsonl"
+    flush_interval: 100ms
+processors:
+  tail_sampling:
+    sampling_strategy: trace-complete
+    decision_wait: 1s
+    num_traces: 32
+    expected_new_traces_per_sec: 4
+    policies:
+      - name: errors
+        type: status_code
+        status_code:
+          status_codes: [ERROR]
+service:
+  telemetry:
+    metrics:
+      level: none
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [tail_sampling]
+      exporters: [file]

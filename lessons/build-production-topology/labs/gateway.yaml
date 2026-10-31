@@ -1,0 +1,203 @@
+receivers:
+  otlp/a:
+    protocols:
+      http:
+        endpoint: "127.0.0.1:@INGRESS_A@"
+        tls:
+          cert_file: "@WORK@/server.crt"
+          key_file: "@WORK@/server.key"
+        auth:
+          authenticator: bearertokenauth/ingress_a
+  otlp/b:
+    protocols:
+      http:
+        endpoint: "127.0.0.1:@INGRESS_B@"
+        tls:
+          cert_file: "@WORK@/server.crt"
+          key_file: "@WORK@/server.key"
+        auth:
+          authenticator: bearertokenauth/ingress_b
+extensions:
+  bearertokenauth/ingress_a:
+    token: ${env:INGRESS_A_TOKEN}
+  bearertokenauth/export_a:
+    token: ${env:DESTINATION_A_TOKEN}
+  file_storage/a:
+    directory: "@WORK@/storage-a"
+    fsync: true
+  bearertokenauth/ingress_b:
+    token: ${env:INGRESS_B_TOKEN}
+  bearertokenauth/export_b:
+    token: ${env:DESTINATION_B_TOKEN}
+  file_storage/b:
+    directory: "@WORK@/storage-b"
+    fsync: true
+  health_check:
+    endpoint: "127.0.0.1:@HEALTH@"
+processors:
+  resource/a:
+    attributes:
+      - key: tenant.id
+        value: a
+        action: upsert
+  resource/b:
+    attributes:
+      - key: tenant.id
+        value: b
+        action: upsert
+  transform/redact:
+    error_mode: propagate
+    trace_statements:
+      - delete_key(resource.attributes, "synthetic.customer.email")
+      - delete_key(span.attributes, "synthetic.token")
+    metric_statements:
+      - delete_key(resource.attributes, "synthetic.customer.email")
+    log_statements:
+      - delete_key(resource.attributes, "synthetic.customer.email")
+      - delete_key(log.attributes, "synthetic.token")
+      - replace_pattern(log.body, "token=[^ ]+", "token=[REDACTED]") where IsString(log.body)
+  filter/routine:
+    error_mode: propagate
+    log_conditions:
+      - log.body == "heartbeat ok" and log.severity_number < SEVERITY_NUMBER_ERROR
+  tail_sampling/value:
+    sampling_strategy: trace-complete
+    decision_wait: 1s
+    num_traces: 32
+    policies:
+      - name: errors
+        type: status_code
+        status_code:
+          status_codes: [ERROR]
+      - name: slow
+        type: latency
+        latency:
+          threshold_ms: 200
+connectors:
+  count/incoming: {}
+  routing/traces:
+    error_mode: propagate
+    table:
+      - condition: resource.attributes["tenant.id"] == "a"
+        pipelines: [traces/a-out]
+      - condition: resource.attributes["tenant.id"] == "b"
+        pipelines: [traces/b-out]
+  routing/metrics:
+    error_mode: propagate
+    table:
+      - condition: resource.attributes["tenant.id"] == "a"
+        pipelines: [metrics/a-out]
+      - condition: resource.attributes["tenant.id"] == "b"
+        pipelines: [metrics/b-out]
+  routing/logs:
+    error_mode: propagate
+    table:
+      - condition: resource.attributes["tenant.id"] == "a"
+        pipelines: [logs/a-out]
+      - condition: resource.attributes["tenant.id"] == "b"
+        pipelines: [logs/b-out]
+exporters:
+  file/incoming:
+    path: "@WORK@/incoming.jsonl"
+    flush_interval: 100ms
+  otlp_http/a:
+    endpoint: "https://127.0.0.1:@SINK_A@"
+    tls:
+      ca_file: "@WORK@/ca.crt"
+    auth:
+      authenticator: bearertokenauth/export_a
+    timeout: 1s
+    sending_queue:
+      storage: file_storage/a
+      queue_size: 32
+      num_consumers: 1
+    retry_on_failure:
+      initial_interval: 100ms
+      max_interval: 100ms
+      max_elapsed_time: 0s
+  otlp_http/b:
+    endpoint: "https://127.0.0.1:@SINK_B@"
+    tls:
+      ca_file: "@WORK@/ca.crt"
+    auth:
+      authenticator: bearertokenauth/export_b
+    timeout: 1s
+    sending_queue:
+      storage: file_storage/b
+      queue_size: 32
+      num_consumers: 1
+    retry_on_failure:
+      initial_interval: 100ms
+      max_interval: 100ms
+      max_elapsed_time: 0s
+service:
+  extensions:
+    [
+      bearertokenauth/ingress_a,
+      bearertokenauth/ingress_b,
+      bearertokenauth/export_a,
+      bearertokenauth/export_b,
+      file_storage/a,
+      file_storage/b,
+      health_check,
+    ]
+  telemetry:
+    logs:
+      encoding: json
+    metrics:
+      readers:
+        - pull:
+            exporter:
+              prometheus:
+                host: 127.0.0.1
+                port: "@METRICS@"
+                without_type_suffix: true
+                without_units: true
+  pipelines:
+    traces/a-in:
+      receivers: [otlp/a]
+      processors: [resource/a, transform/redact]
+      exporters: [routing/traces, count/incoming]
+    traces/a-out:
+      receivers: [routing/traces]
+      processors: [tail_sampling/value]
+      exporters: [otlp_http/a]
+    traces/b-in:
+      receivers: [otlp/b]
+      processors: [resource/b, transform/redact]
+      exporters: [routing/traces, count/incoming]
+    traces/b-out:
+      receivers: [routing/traces]
+      processors: [tail_sampling/value]
+      exporters: [otlp_http/b]
+    metrics/a-in:
+      receivers: [otlp/a]
+      processors: [resource/a, transform/redact]
+      exporters: [routing/metrics]
+    metrics/a-out:
+      receivers: [routing/metrics]
+      exporters: [otlp_http/a]
+    metrics/b-in:
+      receivers: [otlp/b]
+      processors: [resource/b, transform/redact]
+      exporters: [routing/metrics]
+    metrics/b-out:
+      receivers: [routing/metrics]
+      exporters: [otlp_http/b]
+    logs/a-in:
+      receivers: [otlp/a]
+      processors: [resource/a, transform/redact, filter/routine]
+      exporters: [routing/logs]
+    logs/a-out:
+      receivers: [routing/logs]
+      exporters: [otlp_http/a]
+    logs/b-in:
+      receivers: [otlp/b]
+      processors: [resource/b, transform/redact, filter/routine]
+      exporters: [routing/logs]
+    logs/b-out:
+      receivers: [routing/logs]
+      exporters: [otlp_http/b]
+    metrics/incoming:
+      receivers: [count/incoming]
+      exporters: [file/incoming]

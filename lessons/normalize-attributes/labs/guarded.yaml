@@ -1,0 +1,26 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: ${env:LESSON_OTLP_ENDPOINT}
+exporters:
+  file:
+    path: ${env:LESSON_TRACE_FILE}
+    flush_interval: 100ms
+processors:
+  transform:
+    error_mode: ignore
+    trace_statements:
+      - context: resource
+        statements:
+          - set(resource.attributes["checkout.stage"], resource.attributes["checkout.stage_legacy"]) where resource.attributes["checkout.stage"] == nil and IsString(resource.attributes["checkout.stage_legacy"])
+          - delete_key(resource.attributes, "checkout.stage_legacy") where resource.attributes["checkout.stage_legacy"] != nil and resource.attributes["checkout.stage_legacy"] == resource.attributes["checkout.stage"]
+service:
+  telemetry:
+    metrics:
+      level: none
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [transform]
+      exporters: [file]

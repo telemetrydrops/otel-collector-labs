@@ -1,0 +1,90 @@
+{
+  "requests": [
+    {
+      "resourceSpans": [
+        {
+          "resource": {
+            "attributes": [
+              {
+                "key": "service.name",
+                "value": {
+                  "stringValue": "checkout-demo"
+                }
+              }
+            ]
+          },
+          "scopeSpans": [
+            {
+              "scope": {
+                "name": "telemetrydrops.lesson"
+              },
+              "spans": [
+                {
+                  "traceId": "00000000000000000000000000000001",
+                  "spanId": "0000000000000002",
+                  "name": "checkout-success",
+                  "startTimeUnixNano": "1800000000000000000",
+                  "endTimeUnixNano": "1800000000010000000",
+                  "status": {
+                    "code": 1
+                  },
+                  "attributes": [
+                    {
+                      "key": "lesson.case",
+                      "value": {
+                        "stringValue": "success"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "resourceSpans": [
+        {
+          "resource": {
+            "attributes": [
+              {
+                "key": "service.name",
+                "value": {
+                  "stringValue": "checkout-demo"
+                }
+              }
+            ]
+          },
+          "scopeSpans": [
+            {
+              "scope": {
+                "name": "telemetrydrops.lesson"
+              },
+              "spans": [
+                {
+                  "traceId": "00000000000000000000000000000001",
+                  "spanId": "0000000000000003",
+                  "name": "checkout-error",
+                  "startTimeUnixNano": "1800000000000000000",
+                  "endTimeUnixNano": "1800000000010000000",
+                  "status": {
+                    "code": 2
+                  },
+                  "attributes": [
+                    {
+                      "key": "lesson.case",
+                      "value": {
+                        "stringValue": "error"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

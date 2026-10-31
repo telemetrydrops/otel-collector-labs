@@ -1,0 +1,50 @@
+{
+  "resourceMetrics": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "checkout-a"
+            }
+          },
+          {
+            "key": "tenant.id",
+            "value": {
+              "stringValue": "b"
+            }
+          },
+          {
+            "key": "synthetic.customer.email",
+            "value": {
+              "stringValue": "nobody@example.invalid"
+            }
+          }
+        ]
+      },
+      "scopeMetrics": [
+        {
+          "scope": {
+            "name": "telemetrydrops.capstone",
+            "version": "1.0.0"
+          },
+          "metrics": [
+            {
+              "name": "lesson.queue.depth",
+              "unit": "{item}",
+              "gauge": {
+                "dataPoints": [
+                  {
+                    "asInt": "7",
+                    "timeUnixNano": "1792272000000000000"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

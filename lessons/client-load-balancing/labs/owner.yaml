@@ -1,0 +1,20 @@
+{
+  "receivers":
+    {
+      "otlp":
+        {
+          "protocols":
+            {
+              "grpc": { "endpoint": "127.0.0.1:@GRPC@" },
+              "http": { "endpoint": "127.0.0.1:@HTTP@" },
+            },
+        },
+    },
+  "exporters": { "file": { "path": "@OUTPUT@", "flush_interval": "100ms" } },
+  "service":
+    {
+      "telemetry": { "metrics": { "level": "none" } },
+      "pipelines":
+        { "traces": { "receivers": ["otlp"], "exporters": ["file"] } },
+    },
+}

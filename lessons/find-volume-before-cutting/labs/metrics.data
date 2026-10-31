@@ -1,0 +1,38 @@
+{
+  "resourceMetrics": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "checkout-demo"
+            }
+          }
+        ]
+      },
+      "scopeMetrics": [
+        {
+          "scope": {
+            "name": "telemetrydrops.volume",
+            "version": "1.0.0"
+          },
+          "metrics": [
+            {
+              "name": "lesson.queue.depth",
+              "unit": "{item}",
+              "gauge": {
+                "dataPoints": [
+                  {
+                    "asInt": "7",
+                    "timeUnixNano": "1792272000000000000"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

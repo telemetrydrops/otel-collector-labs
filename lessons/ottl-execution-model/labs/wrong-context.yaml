@@ -1,0 +1,25 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: ${env:LESSON_OTLP_ENDPOINT}
+exporters:
+  file:
+    path: ${env:LESSON_TRACE_FILE}
+    flush_interval: 100ms
+processors:
+  transform:
+    error_mode: ignore
+    trace_statements:
+      - context: resource
+        statements:
+          - set(span.attributes["lesson.flag"], "bad-context")
+service:
+  telemetry:
+    metrics:
+      level: none
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [transform]
+      exporters: [file]

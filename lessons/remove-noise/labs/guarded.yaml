@@ -1,0 +1,23 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: ${env:LESSON_OTLP_ENDPOINT}
+exporters:
+  file:
+    path: ${env:LESSON_TRACE_FILE}
+    flush_interval: 100ms
+processors:
+  filter:
+    error_mode: ignore
+    trace_conditions:
+      - span.name == "health" and span.status.code != STATUS_CODE_ERROR
+service:
+  telemetry:
+    metrics:
+      level: none
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [filter]
+      exporters: [file]

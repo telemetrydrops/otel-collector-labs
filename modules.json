@@ -1,0 +1,591 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "id": "prepare-lab-environment",
+      "section": "lab-foundations",
+      "title": "Prepare your lab environment",
+      "requirements": "Python 3.11+, curl, tar and a checksum tool; install the official native Collector Contrib 0.163.1 for your operating system.",
+      "lessons": [
+        "prepare-lab-environment"
+      ],
+      "files": [
+        "lessons/prepare-lab-environment/labs/README.md",
+        "lessons/prepare-lab-environment/labs/check.py",
+        "lessons/prepare-lab-environment/labs/collector.yaml"
+      ],
+      "runners": [
+        {
+          "lesson": "prepare-lab-environment",
+          "path": "lessons/prepare-lab-environment/labs/check.py"
+        }
+      ]
+    },
+    {
+      "id": "think-in-pipelines-lab",
+      "section": "think-in-pipelines",
+      "title": "Build and diagnose your first pipeline",
+      "requirements": "Python 3.11+ and the pinned native Collector Contrib 0.163.1. All receivers in this module use loopback.",
+      "lessons": [
+        "first-otlp-pipeline",
+        "read-the-evidence"
+      ],
+      "files": [
+        "lessons/first-otlp-pipeline/labs/README.md",
+        "lessons/first-otlp-pipeline/labs/collector.yaml",
+        "lessons/first-otlp-pipeline/labs/input.data",
+        "lessons/first-otlp-pipeline/labs/run.py",
+        "lessons/read-the-evidence/labs/broken-reference.yaml",
+        "lessons/read-the-evidence/labs/input.data",
+        "lessons/read-the-evidence/labs/metrics-only.yaml",
+        "lessons/read-the-evidence/labs/working.yaml",
+        "lessons/read-the-evidence/validation/run.py",
+        "lessons/think-in-pipelines-lab/labs/README.md"
+      ],
+      "runners": [
+        {
+          "lesson": "first-otlp-pipeline",
+          "path": "lessons/first-otlp-pipeline/labs/run.py"
+        },
+        {
+          "lesson": "read-the-evidence",
+          "path": "lessons/read-the-evidence/validation/run.py"
+        }
+      ]
+    },
+    {
+      "id": "understandable-configurations-lab",
+      "section": "understandable-configurations",
+      "title": "Compose and validate a configuration",
+      "requirements": "Python 3.11+, Collector Contrib 0.163.1 and the matching official core Collector for the distribution comparison. Follow the distribution step to verify both downloads.",
+      "lessons": [
+        "enabled-pipelines",
+        "choose-distribution",
+        "compose-configuration-safely",
+        "validate-before-running"
+      ],
+      "files": [
+        "lessons/choose-distribution/labs/basic.yaml",
+        "lessons/choose-distribution/labs/input.data",
+        "lessons/choose-distribution/labs/needs-transform.yaml",
+        "lessons/choose-distribution/validation/run.py",
+        "lessons/compose-configuration-safely/labs/base.yaml",
+        "lessons/compose-configuration-safely/labs/input.data",
+        "lessons/compose-configuration-safely/labs/overlay.yaml",
+        "lessons/compose-configuration-safely/labs/processors.yaml",
+        "lessons/compose-configuration-safely/validation/run.py",
+        "lessons/enabled-pipelines/labs/branches.yaml",
+        "lessons/enabled-pipelines/labs/fanout.yaml",
+        "lessons/enabled-pipelines/labs/inactive.yaml",
+        "lessons/enabled-pipelines/labs/input.data",
+        "lessons/enabled-pipelines/labs/missing-reference.yaml",
+        "lessons/enabled-pipelines/labs/ordered.yaml",
+        "lessons/enabled-pipelines/labs/reversed.yaml",
+        "lessons/enabled-pipelines/validation/run.py",
+        "lessons/understandable-configurations-lab/labs/README.md",
+        "lessons/validate-before-running/labs/bad-yaml.data",
+        "lessons/validate-before-running/labs/input.data",
+        "lessons/validate-before-running/labs/missing-reference.yaml",
+        "lessons/validate-before-running/labs/unknown-setting.yaml",
+        "lessons/validate-before-running/labs/valid.yaml",
+        "lessons/validate-before-running/validation/run.py"
+      ],
+      "runners": [
+        {
+          "lesson": "enabled-pipelines",
+          "path": "lessons/enabled-pipelines/validation/run.py"
+        },
+        {
+          "lesson": "choose-distribution",
+          "path": "lessons/choose-distribution/validation/run.py"
+        },
+        {
+          "lesson": "compose-configuration-safely",
+          "path": "lessons/compose-configuration-safely/validation/run.py"
+        },
+        {
+          "lesson": "validate-before-running",
+          "path": "lessons/validate-before-running/validation/run.py"
+        }
+      ]
+    },
+    {
+      "id": "receive-deliver-signals-lab",
+      "section": "receive-deliver-signals",
+      "title": "Follow three signals to their destination",
+      "requirements": "Python 3.11+ and Collector Contrib 0.163.1. The runners provide local synthetic senders and destinations.",
+      "lessons": [
+        "otlp-without-mystery",
+        "application-telemetry",
+        "infrastructure-file-telemetry",
+        "export-and-verify"
+      ],
+      "files": [
+        "lessons/application-telemetry/labs/collector.yaml",
+        "lessons/application-telemetry/labs/logs.data",
+        "lessons/application-telemetry/labs/metrics.data",
+        "lessons/application-telemetry/labs/run.py",
+        "lessons/application-telemetry/labs/traces.data",
+        "lessons/export-and-verify/labs/destination.yaml",
+        "lessons/export-and-verify/labs/forwarder.yaml",
+        "lessons/export-and-verify/labs/logs.data",
+        "lessons/export-and-verify/labs/metrics.data",
+        "lessons/export-and-verify/labs/run.py",
+        "lessons/export-and-verify/labs/traces.data",
+        "lessons/infrastructure-file-telemetry/labs/application.txt",
+        "lessons/infrastructure-file-telemetry/labs/collector.yaml",
+        "lessons/infrastructure-file-telemetry/labs/prometheus.txt",
+        "lessons/infrastructure-file-telemetry/labs/run.py",
+        "lessons/otlp-without-mystery/labs/receiver.yaml",
+        "lessons/otlp-without-mystery/labs/run.py",
+        "lessons/otlp-without-mystery/labs/sender.yaml",
+        "lessons/otlp-without-mystery/labs/traces.data",
+        "lessons/receive-deliver-signals-lab/labs/README.md"
+      ],
+      "runners": [
+        {
+          "lesson": "otlp-without-mystery",
+          "path": "lessons/otlp-without-mystery/labs/run.py"
+        },
+        {
+          "lesson": "application-telemetry",
+          "path": "lessons/application-telemetry/labs/run.py"
+        },
+        {
+          "lesson": "infrastructure-file-telemetry",
+          "path": "lessons/infrastructure-file-telemetry/labs/run.py"
+        },
+        {
+          "lesson": "export-and-verify",
+          "path": "lessons/export-and-verify/labs/run.py"
+        }
+      ]
+    },
+    {
+      "id": "transform-filter-ottl-lab",
+      "section": "transform-filter-ottl",
+      "title": "Transform telemetry without losing evidence",
+      "requirements": "Python 3.11+ and Collector Contrib 0.163.1. Use only the supplied synthetic data for the redaction cases.",
+      "lessons": [
+        "ottl-execution-model",
+        "normalize-attributes",
+        "remove-noise",
+        "redact-sensitive-values"
+      ],
+      "files": [
+        "lessons/normalize-attributes/labs/guarded.yaml",
+        "lessons/normalize-attributes/labs/input.data",
+        "lessons/normalize-attributes/labs/overwrite.yaml",
+        "lessons/normalize-attributes/labs/run.py",
+        "lessons/ottl-execution-model/labs/ignore.yaml",
+        "lessons/ottl-execution-model/labs/input.data",
+        "lessons/ottl-execution-model/labs/propagate.yaml",
+        "lessons/ottl-execution-model/labs/run.py",
+        "lessons/ottl-execution-model/labs/unknown-function.yaml",
+        "lessons/ottl-execution-model/labs/wrong-context.yaml",
+        "lessons/redact-sensitive-values/labs/attributes-only.yaml",
+        "lessons/redact-sensitive-values/labs/complete.yaml",
+        "lessons/redact-sensitive-values/labs/input.data",
+        "lessons/redact-sensitive-values/labs/log-input.data",
+        "lessons/redact-sensitive-values/labs/run.py",
+        "lessons/remove-noise/labs/broad.yaml",
+        "lessons/remove-noise/labs/guarded.yaml",
+        "lessons/remove-noise/labs/input.data",
+        "lessons/remove-noise/labs/run.py",
+        "lessons/transform-filter-ottl-lab/labs/README.md"
+      ],
+      "runners": [
+        {
+          "lesson": "ottl-execution-model",
+          "path": "lessons/ottl-execution-model/labs/run.py"
+        },
+        {
+          "lesson": "normalize-attributes",
+          "path": "lessons/normalize-attributes/labs/run.py"
+        },
+        {
+          "lesson": "remove-noise",
+          "path": "lessons/remove-noise/labs/run.py"
+        },
+        {
+          "lesson": "redact-sensitive-values",
+          "path": "lessons/redact-sensitive-values/labs/run.py"
+        }
+      ]
+    },
+    {
+      "id": "connect-signals-derive-telemetry-lab",
+      "section": "connect-signals-derive-telemetry",
+      "title": "Connect pipelines and verify derived measurements",
+      "requirements": "Python 3.11+ and Collector Contrib 0.163.1; no account or remote backend is required.",
+      "lessons": [
+        "connector-boundaries",
+        "spans-to-service-metrics",
+        "logs-to-metrics",
+        "measure-before-sampling"
+      ],
+      "files": [
+        "lessons/connect-signals-derive-telemetry-lab/labs/README.md",
+        "lessons/connector-boundaries/labs/connected.yaml",
+        "lessons/connector-boundaries/labs/disconnected.yaml",
+        "lessons/connector-boundaries/labs/traces.data",
+        "lessons/connector-boundaries/validation/run.py",
+        "lessons/logs-to-metrics/labs/logs.data",
+        "lessons/logs-to-metrics/labs/metrics-only.yaml",
+        "lessons/logs-to-metrics/labs/retain-all.yaml",
+        "lessons/logs-to-metrics/labs/retain-errors.yaml",
+        "lessons/logs-to-metrics/validation/run.py",
+        "lessons/measure-before-sampling/labs/count-after-drop.yaml",
+        "lessons/measure-before-sampling/labs/keep-all.yaml",
+        "lessons/measure-before-sampling/labs/keep-none.yaml",
+        "lessons/measure-before-sampling/labs/traces.data",
+        "lessons/measure-before-sampling/validation/run.py",
+        "lessons/spans-to-service-metrics/labs/span-metrics.yaml",
+        "lessons/spans-to-service-metrics/labs/traces.data",
+        "lessons/spans-to-service-metrics/validation/run.py"
+      ],
+      "runners": [
+        {
+          "lesson": "connector-boundaries",
+          "path": "lessons/connector-boundaries/validation/run.py"
+        },
+        {
+          "lesson": "spans-to-service-metrics",
+          "path": "lessons/spans-to-service-metrics/validation/run.py"
+        },
+        {
+          "lesson": "logs-to-metrics",
+          "path": "lessons/logs-to-metrics/validation/run.py"
+        },
+        {
+          "lesson": "measure-before-sampling",
+          "path": "lessons/measure-before-sampling/validation/run.py"
+        }
+      ]
+    },
+    {
+      "id": "control-telemetry-volume-lab",
+      "section": "control-telemetry-volume",
+      "title": "Measure and reduce telemetry deliberately",
+      "requirements": "Python 3.11+ and Collector Contrib 0.163.1. Keep the declared synthetic populations and timing controls unchanged.",
+      "lessons": [
+        "find-volume-before-cutting",
+        "log-volume-reduction",
+        "head-and-probabilistic-sampling",
+        "tail-sampling-policies"
+      ],
+      "files": [
+        "lessons/control-telemetry-volume-lab/labs/README.md",
+        "lessons/find-volume-before-cutting/labs/baseline.yaml",
+        "lessons/find-volume-before-cutting/labs/logs.data",
+        "lessons/find-volume-before-cutting/labs/metrics.data",
+        "lessons/find-volume-before-cutting/labs/run.py",
+        "lessons/find-volume-before-cutting/labs/traces.data",
+        "lessons/head-and-probabilistic-sampling/labs/all.yaml",
+        "lessons/head-and-probabilistic-sampling/labs/expected.data",
+        "lessons/head-and-probabilistic-sampling/labs/half.yaml",
+        "lessons/head-and-probabilistic-sampling/labs/none.yaml",
+        "lessons/head-and-probabilistic-sampling/labs/repeat.yaml",
+        "lessons/head-and-probabilistic-sampling/labs/run.py",
+        "lessons/head-and-probabilistic-sampling/labs/traces.data",
+        "lessons/log-volume-reduction/labs/aggregated.yaml",
+        "lessons/log-volume-reduction/labs/dedup.yaml",
+        "lessons/log-volume-reduction/labs/grouped.yaml",
+        "lessons/log-volume-reduction/labs/logs.data",
+        "lessons/log-volume-reduction/labs/run.py",
+        "lessons/log-volume-reduction/labs/unique-control.yaml",
+        "lessons/log-volume-reduction/labs/unique-logs.data",
+        "lessons/tail-sampling-policies/labs/compound.yaml",
+        "lessons/tail-sampling-policies/labs/either.yaml",
+        "lessons/tail-sampling-policies/labs/errors.yaml",
+        "lessons/tail-sampling-policies/labs/representative.yaml",
+        "lessons/tail-sampling-policies/labs/run.py",
+        "lessons/tail-sampling-policies/labs/slow.yaml",
+        "lessons/tail-sampling-policies/labs/traces.data"
+      ],
+      "runners": [
+        {
+          "lesson": "find-volume-before-cutting",
+          "path": "lessons/find-volume-before-cutting/labs/run.py"
+        },
+        {
+          "lesson": "log-volume-reduction",
+          "path": "lessons/log-volume-reduction/labs/run.py"
+        },
+        {
+          "lesson": "head-and-probabilistic-sampling",
+          "path": "lessons/head-and-probabilistic-sampling/labs/run.py"
+        },
+        {
+          "lesson": "tail-sampling-policies",
+          "path": "lessons/tail-sampling-policies/labs/run.py"
+        }
+      ]
+    },
+    {
+      "id": "secure-isolate-pipelines-lab",
+      "section": "secure-isolate-pipelines",
+      "title": "Secure and isolate local telemetry routes",
+      "requirements": "Python 3.11+, OpenSSL and Collector Contrib 0.163.1. Certificates and credentials are generated locally by the runners; never substitute production credentials.",
+      "lessons": [
+        "telemetry-threat-model",
+        "tls-both-directions",
+        "authenticate-clients-destinations",
+        "route-tenants-safely"
+      ],
+      "files": [
+        "lessons/authenticate-clients-destinations/labs/input.data",
+        "lessons/authenticate-clients-destinations/labs/run.py",
+        "lessons/route-tenants-safely/labs/input.data",
+        "lessons/route-tenants-safely/labs/run.py",
+        "lessons/secure-isolate-pipelines-lab/labs/README.md",
+        "lessons/telemetry-threat-model/labs/input.data",
+        "lessons/telemetry-threat-model/labs/run.py",
+        "lessons/tls-both-directions/labs/input.data",
+        "lessons/tls-both-directions/labs/run.py"
+      ],
+      "runners": [
+        {
+          "lesson": "telemetry-threat-model",
+          "path": "lessons/telemetry-threat-model/labs/run.py"
+        },
+        {
+          "lesson": "tls-both-directions",
+          "path": "lessons/tls-both-directions/labs/run.py"
+        },
+        {
+          "lesson": "authenticate-clients-destinations",
+          "path": "lessons/authenticate-clients-destinations/labs/run.py"
+        },
+        {
+          "lesson": "route-tenants-safely",
+          "path": "lessons/route-tenants-safely/labs/run.py"
+        }
+      ]
+    },
+    {
+      "id": "failure-backpressure-lab",
+      "section": "failure-backpressure",
+      "title": "Follow telemetry through failures and recovery",
+      "requirements": "Python 3.11+ and Collector Contrib 0.163.1. The Kafka step also requires Docker with an explicitly selected context and its pinned broker image; inspect that step before running it.",
+      "lessons": [
+        "failed-export-backpressure",
+        "size-memory-queues",
+        "persist-sending-queue",
+        "decouple-with-kafka"
+      ],
+      "files": [
+        "lessons/decouple-with-kafka/labs/consumer.yaml",
+        "lessons/decouple-with-kafka/labs/input.data",
+        "lessons/decouple-with-kafka/labs/producer.yaml",
+        "lessons/decouple-with-kafka/validation/run.py",
+        "lessons/failed-export-backpressure/labs/block-on-overflow.yaml",
+        "lessons/failed-export-backpressure/labs/immediate-rejection.yaml",
+        "lessons/failed-export-backpressure/labs/input.data",
+        "lessons/failed-export-backpressure/labs/retry-expiry.yaml",
+        "lessons/failed-export-backpressure/validation/run.py",
+        "lessons/failure-backpressure-lab/labs/README.md",
+        "lessons/persist-sending-queue/labs/input.data",
+        "lessons/persist-sending-queue/labs/memory.yaml",
+        "lessons/persist-sending-queue/labs/persistent.yaml",
+        "lessons/persist-sending-queue/validation/run.py",
+        "lessons/size-memory-queues/labs/input.data",
+        "lessons/size-memory-queues/labs/items.yaml",
+        "lessons/size-memory-queues/labs/requests.yaml",
+        "lessons/size-memory-queues/validation/run.py"
+      ],
+      "runners": [
+        {
+          "lesson": "failed-export-backpressure",
+          "path": "lessons/failed-export-backpressure/validation/run.py"
+        },
+        {
+          "lesson": "size-memory-queues",
+          "path": "lessons/size-memory-queues/validation/run.py"
+        },
+        {
+          "lesson": "persist-sending-queue",
+          "path": "lessons/persist-sending-queue/validation/run.py"
+        },
+        {
+          "lesson": "decouple-with-kafka",
+          "path": "lessons/decouple-with-kafka/validation/run.py"
+        }
+      ]
+    },
+    {
+      "id": "observe-troubleshoot-lab",
+      "section": "observe-troubleshoot",
+      "title": "Diagnose the Collector from observed evidence",
+      "requirements": "Python 3.11+ and Collector Contrib 0.163.1; the observer/destinations run locally.",
+      "lessons": [
+        "collector-self-telemetry",
+        "health-and-readiness",
+        "repeatable-troubleshooting",
+        "profile-and-right-size"
+      ],
+      "files": [
+        "lessons/collector-self-telemetry/labs/observer.yaml",
+        "lessons/collector-self-telemetry/labs/run.py",
+        "lessons/collector-self-telemetry/labs/source.yaml",
+        "lessons/collector-self-telemetry/labs/traces.data",
+        "lessons/health-and-readiness/labs/degraded.yaml",
+        "lessons/health-and-readiness/labs/run.py",
+        "lessons/health-and-readiness/labs/traces.data",
+        "lessons/observe-troubleshoot-lab/labs/README.md",
+        "lessons/profile-and-right-size/labs/basic.yaml",
+        "lessons/profile-and-right-size/labs/detailed.yaml",
+        "lessons/profile-and-right-size/labs/run.py",
+        "lessons/profile-and-right-size/labs/traces.data",
+        "lessons/repeatable-troubleshooting/labs/destination.yaml",
+        "lessons/repeatable-troubleshooting/labs/missing-reference.yaml",
+        "lessons/repeatable-troubleshooting/labs/rejecting.yaml",
+        "lessons/repeatable-troubleshooting/labs/repaired.yaml",
+        "lessons/repeatable-troubleshooting/labs/run.py",
+        "lessons/repeatable-troubleshooting/labs/traces.data",
+        "lessons/repeatable-troubleshooting/labs/unreachable.yaml",
+        "lessons/repeatable-troubleshooting/labs/working.yaml",
+        "lessons/repeatable-troubleshooting/labs/wrong-signal.yaml"
+      ],
+      "runners": [
+        {
+          "lesson": "collector-self-telemetry",
+          "path": "lessons/collector-self-telemetry/labs/run.py"
+        },
+        {
+          "lesson": "health-and-readiness",
+          "path": "lessons/health-and-readiness/labs/run.py"
+        },
+        {
+          "lesson": "repeatable-troubleshooting",
+          "path": "lessons/repeatable-troubleshooting/labs/run.py"
+        },
+        {
+          "lesson": "profile-and-right-size",
+          "path": "lessons/profile-and-right-size/labs/run.py"
+        }
+      ]
+    },
+    {
+      "id": "deploy-on-kubernetes-lab",
+      "section": "deploy-on-kubernetes",
+      "title": "Operate Collector topologies in a disposable cluster",
+      "requirements": "Docker, k3d, kubectl and an explicitly selected disposable kubeconfig/context. Follow the topology setup instructions and pinned images. Never use a shared or production context. Disposable cluster setup also requires the GitHub CLI (gh).",
+      "lessons": [
+        "deployment-topologies",
+        "node-pod-logs",
+        "cluster-telemetry",
+        "opentelemetry-operator"
+      ],
+      "files": [
+        "lessons/cluster-telemetry/labs/input.data",
+        "lessons/cluster-telemetry/labs/run.py",
+        "lessons/deploy-on-kubernetes-lab/labs/README.md",
+        "lessons/deployment-topologies/labs/input.data",
+        "lessons/deployment-topologies/labs/run.py",
+        "lessons/deployment-topologies/labs/setup.sh",
+        "lessons/node-pod-logs/labs/input.data",
+        "lessons/node-pod-logs/labs/run.py",
+        "lessons/opentelemetry-operator/labs/input.data",
+        "lessons/opentelemetry-operator/labs/run.py"
+      ],
+      "runners": [
+        {
+          "lesson": "deployment-topologies",
+          "path": "lessons/deployment-topologies/labs/run.py"
+        },
+        {
+          "lesson": "node-pod-logs",
+          "path": "lessons/node-pod-logs/labs/run.py"
+        },
+        {
+          "lesson": "cluster-telemetry",
+          "path": "lessons/cluster-telemetry/labs/run.py"
+        },
+        {
+          "lesson": "opentelemetry-operator",
+          "path": "lessons/opentelemetry-operator/labs/run.py"
+        }
+      ]
+    },
+    {
+      "id": "scale-collector-work-lab",
+      "section": "scale-collector-work",
+      "title": "Scale routes while preserving state ownership",
+      "requirements": "Python 3.11+ and Collector Contrib 0.163.1. Target allocation additionally requires the explicit disposable Kubernetes kubeconfig/context described in that step. Disposable cluster setup also requires the GitHub CLI (gh).",
+      "lessons": [
+        "scale-bottlenecks",
+        "client-load-balancing",
+        "prometheus-target-allocation",
+        "scale-tail-sampling"
+      ],
+      "files": [
+        "lessons/client-load-balancing/labs/input.data",
+        "lessons/client-load-balancing/labs/owner.yaml",
+        "lessons/client-load-balancing/labs/run.py",
+        "lessons/client-load-balancing/labs/service-key.yaml",
+        "lessons/client-load-balancing/labs/trace-id.yaml",
+        "lessons/deployment-topologies/labs/setup.sh",
+        "lessons/prometheus-target-allocation/labs/resources.yaml",
+        "lessons/prometheus-target-allocation/labs/run.py",
+        "lessons/scale-bottlenecks/labs/collector.yaml",
+        "lessons/scale-bottlenecks/labs/input.data",
+        "lessons/scale-bottlenecks/labs/run.py",
+        "lessons/scale-collector-work-lab/labs/README.md",
+        "lessons/scale-tail-sampling/labs/input.data",
+        "lessons/scale-tail-sampling/labs/owner.yaml",
+        "lessons/scale-tail-sampling/labs/run.py",
+        "lessons/scale-tail-sampling/labs/trace-id.yaml"
+      ],
+      "runners": [
+        {
+          "lesson": "scale-bottlenecks",
+          "path": "lessons/scale-bottlenecks/labs/run.py"
+        },
+        {
+          "lesson": "client-load-balancing",
+          "path": "lessons/client-load-balancing/labs/run.py"
+        },
+        {
+          "lesson": "prometheus-target-allocation",
+          "path": "lessons/prometheus-target-allocation/labs/run.py"
+        },
+        {
+          "lesson": "scale-tail-sampling",
+          "path": "lessons/scale-tail-sampling/labs/run.py"
+        }
+      ]
+    },
+    {
+      "id": "production-pipeline-capstone-lab",
+      "section": "production-pipeline-capstone",
+      "title": "Build, test and defend a production pipeline",
+      "requirements": "Python 3.11+, OpenSSL and Collector Contrib 0.163.1. The composed runner uses local synthetic traffic; no production account is required.",
+      "lessons": [
+        "architecture-requirements",
+        "build-production-topology",
+        "test-production-failure-paths",
+        "operate-and-defend-design"
+      ],
+      "files": [
+        "lessons/build-production-topology/labs/a-logs.data",
+        "lessons/build-production-topology/labs/a-metrics.data",
+        "lessons/build-production-topology/labs/a-traces.data",
+        "lessons/build-production-topology/labs/b-logs.data",
+        "lessons/build-production-topology/labs/b-metrics.data",
+        "lessons/build-production-topology/labs/b-traces.data",
+        "lessons/build-production-topology/labs/gateway.yaml",
+        "lessons/build-production-topology/labs/run.py",
+        "lessons/build-production-topology/labs/sink-a.yaml",
+        "lessons/build-production-topology/labs/sink-b.yaml",
+        "lessons/production-pipeline-capstone-lab/labs/README.md"
+      ],
+      "runners": [
+        {
+          "lesson": "build-production-topology",
+          "path": "lessons/build-production-topology/labs/run.py"
+        }
+      ]
+    }
+  ]
+}

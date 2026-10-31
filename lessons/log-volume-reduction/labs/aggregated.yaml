@@ -1,0 +1,35 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: "127.0.0.1:@PORT@"
+exporters:
+  file:
+    path: "@OUTPUT@/output.jsonl"
+    flush_interval: 100ms
+processors:
+  transform:
+    error_mode: propagate
+    log_statements:
+      - set(log.attributes["lesson.pattern"], "heartbeat") where log.body == "heartbeat ok"
+      - set(log.attributes["lesson.pattern"], "order-created") where IsMatch(log.body, "^order [0-9]+ created$")
+      - set(log.attributes["lesson.pattern"], "order-failed") where IsMatch(log.body, "^order [0-9]+ failed$")
+connectors:
+  count:
+    logs:
+      lesson.log.records:
+        description: Synthetic record count by curated pattern.
+        attributes:
+          - key: lesson.pattern
+service:
+  telemetry:
+    metrics:
+      level: none
+  pipelines:
+    logs:
+      receivers: [otlp]
+      processors: [transform]
+      exporters: [count]
+    metrics:
+      receivers: [count]
+      exporters: [file]

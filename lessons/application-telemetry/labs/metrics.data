@@ -1,0 +1,46 @@
+{
+  "resourceMetrics": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "checkout-demo"
+            }
+          }
+        ]
+      },
+      "scopeMetrics": [
+        {
+          "scope": {
+            "name": "telemetrydrops.lesson",
+            "version": "1.0.0"
+          },
+          "metrics": [
+            {
+              "name": "lesson.queue.depth",
+              "unit": "{item}",
+              "gauge": {
+                "dataPoints": [
+                  {
+                    "timeUnixNano": "1792272000000000000",
+                    "asInt": "7",
+                    "attributes": [
+                      {
+                        "key": "lesson.case",
+                        "value": {
+                          "stringValue": "queue"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

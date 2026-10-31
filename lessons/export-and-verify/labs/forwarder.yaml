@@ -1,0 +1,27 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: "127.0.0.1:@HTTP@"
+exporters:
+  otlp_http:
+    endpoint: "http://127.0.0.1:@TARGET@"
+    sending_queue:
+      enabled: false
+    retry_on_failure:
+      enabled: false
+    timeout: 2s
+service:
+  telemetry:
+    metrics:
+      level: none
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [otlp_http]
+    metrics:
+      receivers: [otlp]
+      exporters: [otlp_http]
+    logs:
+      receivers: [otlp]
+      exporters: [otlp_http]

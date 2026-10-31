@@ -1,0 +1,394 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "items":
+    [
+      {
+        "apiVersion": "v1",
+        "kind": "Namespace",
+        "metadata": { "name": "@NAMESPACE@" },
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "ServiceAccount",
+        "metadata": { "name": "allocator-reader", "namespace": "@NAMESPACE@" },
+      },
+      {
+        "apiVersion": "rbac.authorization.k8s.io/v1",
+        "kind": "Role",
+        "metadata": { "name": "allocator-reader", "namespace": "@NAMESPACE@" },
+        "rules":
+          [
+            {
+              "apiGroups": [""],
+              "resources": ["pods"],
+              "verbs": ["get", "list", "watch"],
+            },
+            {
+              "apiGroups": ["apps"],
+              "resources": ["statefulsets"],
+              "verbs": ["get", "list", "watch"],
+            },
+          ],
+      },
+      {
+        "apiVersion": "rbac.authorization.k8s.io/v1",
+        "kind": "RoleBinding",
+        "metadata": { "name": "allocator-reader", "namespace": "@NAMESPACE@" },
+        "subjects":
+          [
+            {
+              "kind": "ServiceAccount",
+              "name": "allocator-reader",
+              "namespace": "@NAMESPACE@",
+            },
+          ],
+        "roleRef":
+          {
+            "apiGroup": "rbac.authorization.k8s.io",
+            "kind": "Role",
+            "name": "allocator-reader",
+          },
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "ConfigMap",
+        "metadata": { "name": "fixture-a", "namespace": "@NAMESPACE@" },
+        "data":
+          {
+            "metrics": "# TYPE lesson_queue_depth gauge\nlesson_queue_depth{source=\"a\"} 7\n",
+          },
+      },
+      {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "metadata": { "name": "fixture-a", "namespace": "@NAMESPACE@" },
+        "spec":
+          {
+            "replicas": 1,
+            "selector": { "matchLabels": { "app": "fixture-a" } },
+            "template":
+              {
+                "metadata": { "labels": { "app": "fixture-a" } },
+                "spec":
+                  {
+                    "containers":
+                      [
+                        {
+                          "name": "target",
+                          "image": "busybox@sha256:bdf57e528e45e4433820e045b29b4597825a1c9e38353532d90a01445013f82e",
+                          "command":
+                            ["httpd", "-f", "-p", "9090", "-h", "/www"],
+                          "resources":
+                            {
+                              "requests": { "cpu": "5m", "memory": "8Mi" },
+                              "limits": { "cpu": "50m", "memory": "16Mi" },
+                            },
+                          "volumeMounts":
+                            [
+                              {
+                                "name": "content",
+                                "mountPath": "/www",
+                                "readOnly": true,
+                              },
+                            ],
+                        },
+                      ],
+                    "volumes":
+                      [
+                        {
+                          "name": "content",
+                          "configMap": { "name": "fixture-a" },
+                        },
+                      ],
+                  },
+              },
+          },
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "metadata": { "name": "fixture-a", "namespace": "@NAMESPACE@" },
+        "spec":
+          {
+            "selector": { "app": "fixture-a" },
+            "ports": [{ "port": 9090, "targetPort": 9090 }],
+          },
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "ConfigMap",
+        "metadata": { "name": "fixture-b", "namespace": "@NAMESPACE@" },
+        "data":
+          {
+            "metrics": "# TYPE lesson_queue_depth gauge\nlesson_queue_depth{source=\"b\"} 11\n",
+          },
+      },
+      {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "metadata": { "name": "fixture-b", "namespace": "@NAMESPACE@" },
+        "spec":
+          {
+            "replicas": 1,
+            "selector": { "matchLabels": { "app": "fixture-b" } },
+            "template":
+              {
+                "metadata": { "labels": { "app": "fixture-b" } },
+                "spec":
+                  {
+                    "containers":
+                      [
+                        {
+                          "name": "target",
+                          "image": "busybox@sha256:bdf57e528e45e4433820e045b29b4597825a1c9e38353532d90a01445013f82e",
+                          "command":
+                            ["httpd", "-f", "-p", "9090", "-h", "/www"],
+                          "resources":
+                            {
+                              "requests": { "cpu": "5m", "memory": "8Mi" },
+                              "limits": { "cpu": "50m", "memory": "16Mi" },
+                            },
+                          "volumeMounts":
+                            [
+                              {
+                                "name": "content",
+                                "mountPath": "/www",
+                                "readOnly": true,
+                              },
+                            ],
+                        },
+                      ],
+                    "volumes":
+                      [
+                        {
+                          "name": "content",
+                          "configMap": { "name": "fixture-b" },
+                        },
+                      ],
+                  },
+              },
+          },
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "metadata": { "name": "fixture-b", "namespace": "@NAMESPACE@" },
+        "spec":
+          {
+            "selector": { "app": "fixture-b" },
+            "ports": [{ "port": 9090, "targetPort": 9090 }],
+          },
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "ConfigMap",
+        "metadata": { "name": "fixture-c", "namespace": "@NAMESPACE@" },
+        "data":
+          {
+            "metrics": "# TYPE lesson_queue_depth gauge\nlesson_queue_depth{source=\"c\"} 13\n",
+          },
+      },
+      {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "metadata": { "name": "fixture-c", "namespace": "@NAMESPACE@" },
+        "spec":
+          {
+            "replicas": 1,
+            "selector": { "matchLabels": { "app": "fixture-c" } },
+            "template":
+              {
+                "metadata": { "labels": { "app": "fixture-c" } },
+                "spec":
+                  {
+                    "containers":
+                      [
+                        {
+                          "name": "target",
+                          "image": "busybox@sha256:bdf57e528e45e4433820e045b29b4597825a1c9e38353532d90a01445013f82e",
+                          "command":
+                            ["httpd", "-f", "-p", "9090", "-h", "/www"],
+                          "resources":
+                            {
+                              "requests": { "cpu": "5m", "memory": "8Mi" },
+                              "limits": { "cpu": "50m", "memory": "16Mi" },
+                            },
+                          "volumeMounts":
+                            [
+                              {
+                                "name": "content",
+                                "mountPath": "/www",
+                                "readOnly": true,
+                              },
+                            ],
+                        },
+                      ],
+                    "volumes":
+                      [
+                        {
+                          "name": "content",
+                          "configMap": { "name": "fixture-c" },
+                        },
+                      ],
+                  },
+              },
+          },
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "metadata": { "name": "fixture-c", "namespace": "@NAMESPACE@" },
+        "spec":
+          {
+            "selector": { "app": "fixture-c" },
+            "ports": [{ "port": 9090, "targetPort": 9090 }],
+          },
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "ConfigMap",
+        "metadata": { "name": "fixture-d", "namespace": "@NAMESPACE@" },
+        "data":
+          {
+            "metrics": "# TYPE lesson_queue_depth gauge\nlesson_queue_depth{source=\"d\"} 17\n",
+          },
+      },
+      {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "metadata": { "name": "fixture-d", "namespace": "@NAMESPACE@" },
+        "spec":
+          {
+            "replicas": 1,
+            "selector": { "matchLabels": { "app": "fixture-d" } },
+            "template":
+              {
+                "metadata": { "labels": { "app": "fixture-d" } },
+                "spec":
+                  {
+                    "containers":
+                      [
+                        {
+                          "name": "target",
+                          "image": "busybox@sha256:bdf57e528e45e4433820e045b29b4597825a1c9e38353532d90a01445013f82e",
+                          "command":
+                            ["httpd", "-f", "-p", "9090", "-h", "/www"],
+                          "resources":
+                            {
+                              "requests": { "cpu": "5m", "memory": "8Mi" },
+                              "limits": { "cpu": "50m", "memory": "16Mi" },
+                            },
+                          "volumeMounts":
+                            [
+                              {
+                                "name": "content",
+                                "mountPath": "/www",
+                                "readOnly": true,
+                              },
+                            ],
+                        },
+                      ],
+                    "volumes":
+                      [
+                        {
+                          "name": "content",
+                          "configMap": { "name": "fixture-d" },
+                        },
+                      ],
+                  },
+              },
+          },
+      },
+      {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "metadata": { "name": "fixture-d", "namespace": "@NAMESPACE@" },
+        "spec":
+          {
+            "selector": { "app": "fixture-d" },
+            "ports": [{ "port": 9090, "targetPort": 9090 }],
+          },
+      },
+      {
+        "apiVersion": "opentelemetry.io/v1beta1",
+        "kind": "OpenTelemetryCollector",
+        "metadata": { "name": "scrapers", "namespace": "@NAMESPACE@" },
+        "spec":
+          {
+            "mode": "statefulset",
+            "replicas": 2,
+            "image": "otel/opentelemetry-collector-contrib:0.163.1",
+            "resources":
+              {
+                "requests": { "cpu": "25m", "memory": "64Mi" },
+                "limits": { "cpu": "200m", "memory": "128Mi" },
+              },
+            "targetAllocator":
+              {
+                "enabled": true,
+                "image": "ghcr.io/open-telemetry/opentelemetry-operator/target-allocator:0.161.0",
+                "allocationStrategy": "least-weighted",
+                "collectorNotReadyGracePeriod": "1s",
+                "collectorTargetReloadInterval": "2s",
+                "serviceAccount": "allocator-reader",
+                "prometheusCR": { "enabled": false },
+                "resources":
+                  {
+                    "requests": { "cpu": "10m", "memory": "64Mi" },
+                    "limits": { "cpu": "100m", "memory": "128Mi" },
+                  },
+              },
+            "config":
+              {
+                "receivers":
+                  {
+                    "prometheus":
+                      {
+                        "config":
+                          {
+                            "scrape_configs":
+                              [
+                                {
+                                  "job_name": "fixture",
+                                  "scrape_interval": "1s",
+                                  "scrape_timeout": "500ms",
+                                  "static_configs":
+                                    [
+                                      {
+                                        "targets":
+                                          [
+                                            "fixture-a:9090",
+                                            "fixture-b:9090",
+                                            "fixture-c:9090",
+                                            "fixture-d:9090",
+                                          ],
+                                      },
+                                    ],
+                                },
+                              ],
+                          },
+                      },
+                  },
+                "exporters":
+                  {
+                    "file":
+                      { "path": "/dev/stdout", "flush_interval": "100ms" },
+                  },
+                "service":
+                  {
+                    "telemetry": { "metrics": { "level": "none" } },
+                    "pipelines":
+                      {
+                        "metrics":
+                          {
+                            "receivers": ["prometheus"],
+                            "exporters": ["file"],
+                          },
+                      },
+                  },
+              },
+          },
+      },
+    ],
+}

@@ -1,0 +1,30 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 127.0.0.1:${env:LESSON_PORT}
+exporters:
+  otlp_http:
+    endpoint: http://127.0.0.1:${env:LESSON_DESTINATION}
+    encoding: json
+    timeout: 500ms
+    retry_on_failure:
+      enabled: true
+      initial_interval: 100ms
+      max_interval: 100ms
+      randomization_factor: 0
+      max_elapsed_time: 600ms
+    sending_queue:
+      enabled: true
+      sizer: requests
+      queue_size: 2
+      num_consumers: 1
+      block_on_overflow: false
+service:
+  telemetry:
+    metrics:
+      level: none
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [otlp_http]
